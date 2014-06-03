@@ -1,0 +1,48 @@
+.navbar-default{
+  background-color:#000;
+  border-color:#000;
+}
+
+.navbar{
+  border-radius:0px;
+  margin-bottom:0;
+}
+.navbar-default .navbar-brand{
+  /*color:#ffd500;*/
+  color:#fff;
+}
+
+.navbar-brand {
+  font-size: 26px;
+  height: 76px;
+/*  padding-left:0;*/
+  font-weight: bold;
+}
+
+.container {
+  width:990px;
+}
+
+.welcome-block {
+  background-color:#afada3;
+  padding:15px;
+}
+
+.welcome-block .links {
+  background-color:#000;
+}
+.welcome-block .links a {
+  color:#fff;
+}
+
+.welcome-block li{
+  list-style-type: none;
+}
+
+.footer {
+  padding-top: 40px;
+  padding-bottom: 40px;
+  margin-top: 40px;
+  border-top: 1px solid #eee;
+  background-color: #afada3;
+}
