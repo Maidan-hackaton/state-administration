@@ -1,10 +1,34 @@
 ## Open map
 
-Карта районов Одесской области:
-
-* https://gist.github.com/anonymous/532deb34432752d8eb6f
+### Карта Украины
 
 Запрос http://overpass-turbo.eu/:
+
+```
+<osm-script output="json" timeout="25">
+  <!-- fetch area “Odessa” to search in -->
+  <id-query {{nominatimArea:Ukraine}} into="area"/>
+  <!-- gather results -->
+  <union>
+    <!-- query part for: “boundary=administrative” -->
+    <query type="relation">
+      <has-kv k="boundary" v="administrative"/>
+      <has-kv k="admin_level" v="4"/>
+      <area-query from="area"/>
+    </query>
+    <recurse type="relation-way"/>
+    <recurse type="way-node"/>
+  </union>
+  <!-- print results -->
+
+  <print mode="skeleton" />
+
+</osm-script>
+```
+
+### Карта районов Одесской области
+
+* https://gist.github.com/anonymous/532deb34432752d8eb6f
 
 ```
 <!--
