@@ -50,7 +50,7 @@
 * http://www.oda.cv.ua/
 * http://oblrada.cv.ua/
 
-### www.[region].gov.ua
+### [region].gov.ua
 
 * http://www.vin.gov.ua/
 * http://www.zhitomir-region.gov.ua/
