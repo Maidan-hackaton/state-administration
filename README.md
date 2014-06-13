@@ -1,7 +1,7 @@
-State-Administration
+Портал местного органа власти
 ====================
 
-Обсуждение улучшений сайтов госадминистраций
+Обсуждение улучшений сайтов местных органов власти.
 
 * [Facebook-группа](https://www.facebook.com/groups/775825995785709/)
 * [facebook-сообщение](https://www.facebook.com/groups/MaidanHackthon/permalink/1453820318192664/)
