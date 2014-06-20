@@ -1,0 +1,25 @@
+### Set up virtual env
+
+```
+virtualenv --no-site-packages --distribute -p /usr/bin/python3.4 ~/.virtualenvs/pywork3
+source ~/.virtualenvs/pywork3/bin/activate
+pip install -r requirements.txt
+add2virtualenv .
+```
+
+### Set up database
+
+```
+psql psql -U postgres -h localhost
+# CREATE DATABASE pupa_ukraine;
+# \q
+export DATABASE_URL=postgres://postgres@localhost/pupa_ukraine
+pupa dbinit
+```
+
+
+### Scrape!
+
+```
+pupa update
+```
