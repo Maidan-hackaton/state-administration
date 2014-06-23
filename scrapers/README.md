@@ -11,15 +11,17 @@ add2virtualenv .
 
 ```
 psql psql -U postgres -h localhost
-# CREATE DATABASE pupa_ukraine;
+#  CREATE DATABASE pupa_ukraine TEMPLATE=template_postgis;
 # \q
-export DATABASE_URL=postgres://postgres@localhost/pupa_ukraine
-pupa dbinit
+export DATABASE_URL=postgis://postgres@localhost/pupa_ukraine
+pupa dbinit ua
 ```
 
 
 ### Scrape!
 
 ```
-pupa update
+pupa update odessa_region
+# use fastmode after first scraping (uses cache)
+# pupa update --fastmode odessa_region
 ```

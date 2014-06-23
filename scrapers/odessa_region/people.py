@@ -1,6 +1,7 @@
 #encoding=utf-8
 from pupa.scrape import Scraper
-from pupa.scrape.helpers import Legislator, Organization
+from pupa.scrape.helpers import Organization
+from pupa.scrape.popolo import Person
 import logging
 import lxml.html
 
@@ -10,6 +11,14 @@ logger = logging.getLogger(__name__)
 
 
 MEMBERLIST = 'http://oblrada.odessa.gov.ua/index.php?option=com_content&view=article&id=1054&Itemid=266&lang=uk'
+
+
+def parse_date(date_string):
+    day, month, year, _ = date_string.split(' ')
+    month_number = {'січня': 1, 'лютого': 2, 'березня': 3, 'квітня': 4, 'травня': 5, 'червня': 6, 'липня': 7, 'серпня': 8, 'вересня': 9, 'жовтня': 10, 'листопада': 11, 'грудня': 12}.get(month)
+    year = int(year)
+    day = int(day)
+    return '%04d-%02d-%02d' % (year, month_number, day)
 
 
 class OdessaOblRadaPersonScraper(Scraper):
@@ -23,6 +32,7 @@ class OdessaOblRadaPersonScraper(Scraper):
     def scrape_person_details(self, url, name, post):
         page = self.lxmlize(url)
         article = page.xpath("//div[@class='art-article']")[0]
+        birthdate = ''
         if not article.text_content().strip() == u'Інформіція відсутня' and not article.text_content().strip() == name:
             items = article.xpath("./p/span")
             img = article.xpath("./p//img")
@@ -35,10 +45,13 @@ class OdessaOblRadaPersonScraper(Scraper):
                 if not item.text_content().strip():
                     continue
                 text = item.text_content()
+                birthdate_string = 'Дата народження: '
+                if text.startswith(birthdate_string):
+                    birthdate = parse_date(text.replace(birthdate_string, ''))
                 logger.info(text)
         else:
             img_url = ''
-        p = Legislator(name=name, district=None, image=img_url)
+        p = Person(name=name, image=img_url, birth_date=birthdate)
         p.add_source(MEMBERLIST)
         p.add_source(url)
         return p
@@ -57,13 +70,16 @@ class OdessaOblRadaPersonScraper(Scraper):
             if not name2:
                 name1 = name.xpath("./p/span/span/span/a")
                 name2 = name1[0].text_content()
-                url = name.xpath("./p/span/span/span/a")[0].attrib["href"]
+                a_link = name.xpath("./p/span/span/span/a")[0]
+                url = a_link.attrib["href"]
             else:
-                url = name.xpath("./p/span/a")[0].attrib["href"]
+                a_link = name.xpath("./p/span/a")[0]
+                url = a_link.attrib["href"]
+            name3 = name.xpath("./p/span")[0].text_content()
             post = post.xpath("./p/span/span/a")
             if post:
                 post = post[0].text_content()
             else:
                 post = ''
 
-            yield self.scrape_person_details(url, name2, post)
+            yield self.scrape_person_details(url, name3, post)

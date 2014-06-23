@@ -6,7 +6,7 @@ from .people import OdessaOblRadaPersonScraper
 
 class OdessaOblRada(Jurisdiction):
     classification = 'rada'
-    division_id = 'ocd-division/country:ua/region:od/'
+    division_id = 'ocd-division/country:ua/region:od'
     name = 'Одеська обласна рада'
     url = 'http://oblrada.odessa.gov.ua/'
     scrapers = {
